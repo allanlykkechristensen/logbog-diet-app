@@ -12,55 +12,16 @@ struct NutritionTargetSection: View {
     var body: some View {
 
         Section("Nutrition Targets") {
-            HStack {
-                Text("Calories (kcal)")
-                Spacer()
-                TextField("Calories", value: $nutritionTarget.calories, formatter: NumberFormatter())
-                    .keyboardType(.numberPad)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
+            NutritionTargetInput(label: "Calories (kcal)", value: $nutritionTarget.calories)
         }
 
         Section {
-            HStack {
-                Text("Proteins (g)")
-                Spacer()
-                if let macroPercentages = nutritionTarget.macroPercentages() {
-                    Text(String(format: "%.1f%%", macroPercentages.proteinPercent))
-                        .font(.footnote)
-                }
-                TextField("Proteins", value: $nutritionTarget.proteins, formatter: NumberFormatter())
-                    .keyboardType(.numberPad)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
+            NutritionTargetInput(label: "Proteins", value: $nutritionTarget.proteins, percentage: nutritionTarget.macroPercentages()?.proteinPercent)
 
-            HStack {
-                Text("Fats (g)")
-                Spacer()
-                if let macroPercentages = nutritionTarget.macroPercentages() {
-                    Text(String(format: "%.1f%%", macroPercentages.fatPercent))
-                        .font(.footnote)
-                }
-                TextField("Fats", value: $nutritionTarget.fats, formatter: NumberFormatter())
-                    .keyboardType(.numberPad)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
+            NutritionTargetInput(label: "Fats", value: $nutritionTarget.fats, percentage: nutritionTarget.macroPercentages()?.fatPercent)
 
-            HStack {
-                Text("Carbs (g)")
-                Spacer()
-                if let macroPercentages = nutritionTarget.macroPercentages() {
-                    Text(String(format: "%.1f%%", macroPercentages.carbPercent))
-                        .font(.footnote)
-                }
-                TextField("Carbs", value: $nutritionTarget.carbs, formatter: NumberFormatter())
-                    .keyboardType(.numberPad)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
+            NutritionTargetInput(label: "Carbs", value: $nutritionTarget.carbs, percentage: nutritionTarget.macroPercentages()?.carbPercent)
+
 
             HStack {
                 Text("Macro Calories (kcal)")
