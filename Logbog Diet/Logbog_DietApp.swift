@@ -11,9 +11,7 @@ import SwiftData
 @main
 struct Logbog_DietApp: App {
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
+        let schema = Schema([])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
@@ -26,7 +24,10 @@ struct Logbog_DietApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.nutritionTargetRepository, UserDefaultsNutritionTargetRepository())
+                .environment(\.userProfileRepository, UserDefaultsUserProfileRepository())
         }
         .modelContainer(sharedModelContainer)
     }
 }
+
