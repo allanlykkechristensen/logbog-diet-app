@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ProfileHeader: View {
     let userProfile: UserProfile
-    
+
     var body: some View {
         VStack {
             Image(systemName: "person.circle.fill")
@@ -24,7 +24,7 @@ struct ProfileHeader: View {
 
 #Preview {
     @Previewable @State var userProfile = UserProfile.defaultProfile()
-    
+
     List {
         ProfileHeader(userProfile: userProfile)
     }
