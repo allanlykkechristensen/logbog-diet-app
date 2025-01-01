@@ -9,8 +9,9 @@ import SwiftUI
 import SwiftData
 
 @main
+// swiftlint:disable:next type_name
 struct Logbog_DietApp: App {
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -19,4 +20,3 @@ struct Logbog_DietApp: App {
         }
     }
 }
-
