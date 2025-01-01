@@ -12,7 +12,9 @@ struct NutritionTargetInput: View {
     let percentage: Double?
     let formatter: NumberFormatter
 
-    init(label: String, value: Binding<Int>, percentage: Double? = nil, formatter: NumberFormatter = NumberFormatter()) {
+    init(
+        label: String, value: Binding<Int>, percentage: Double? = nil,
+        formatter: NumberFormatter = NumberFormatter()) {
         self.label = label
         self._value = value
         self.percentage = percentage
