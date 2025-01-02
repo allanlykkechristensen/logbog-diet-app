@@ -11,13 +11,19 @@ public struct ProfileView: View {
     @StateObject private var viewModel: ProfileViewModel
 
     init(repository: UserProfileRepository, nutritionTargetRepository: NutritionTargetRepository) {
+
+        let fetchUserProfileUseCase = FetchUserProfileUseCase(service: UserProfileService(repository: repository))
+        let updateUserProfileUseCase = UpdateUserProfileUseCase(service: UserProfileService(repository: repository))
+        let fetchNutritionTargetUseCase = FetchNutritionTargetUseCase(repository: nutritionTargetRepository)
+        let updateNutritionTargetUseCase = UpdateNutritionTargetUseCase(repository: nutritionTargetRepository)
+
         _viewModel = StateObject(
             wrappedValue:
                 ProfileViewModel(
-                    fetchUserProfileUseCase: FetchUserProfileUseCase(service: UserProfileService(repository: repository)),
-                    updateUserProfileUseCase: UpdateUserProfileUseCase(service: UserProfileService(repository: repository)),
-                    fetchNutritionTargetUseCase: FetchNutritionTargetUseCase(repository: nutritionTargetRepository),
-                    updateNutritionTargetUseCase: UpdateNutritionTargetUseCase(repository: nutritionTargetRepository))
+                    fetchUserProfileUseCase: fetchUserProfileUseCase,
+                    updateUserProfileUseCase: updateUserProfileUseCase,
+                    fetchNutritionTargetUseCase: fetchNutritionTargetUseCase,
+                    updateNutritionTargetUseCase: updateNutritionTargetUseCase)
         )
     }
 
@@ -30,7 +36,7 @@ public struct ProfileView: View {
                 NutritionTargetSection(nutritionTarget: $viewModel.nutritionTarget)
             }
         }
-        .onAppear() {
+        .onAppear {
             viewModel.loadUserProfile()
         }
     }
@@ -38,6 +44,8 @@ public struct ProfileView: View {
 
 #Preview {
     NavigationStack {
-        ProfileView(repository: UserDefaultsUserProfileRepository(), nutritionTargetRepository: UserDefaultsNutritionTargetRepository())
+        ProfileView(
+            repository: UserDefaultsUserProfileRepository(),
+            nutritionTargetRepository: UserDefaultsNutritionTargetRepository())
     }
 }
