@@ -32,4 +32,20 @@ struct UserProfileTests {
 
         #expect(sut.age == 25)
     }
+
+    @Test("Calculate BMR for male") func testBmrCalculationForMale() {
+        let calendar = Calendar.current
+        let dateOfBirth = calendar.date(byAdding: .year, value: -25, to: Date())!
+        let sut = UserProfile(name: "John Doe", dateOfBirth: dateOfBirth, weight: 70.0, height: 175, gender: .male)
+
+        #expect(sut.bmr == 1673.75)
+    }
+
+    @Test("Calculate BMR for female") func testBmrCalculationForFemale() {
+        let calendar = Calendar.current
+        let dateOfBirth = calendar.date(byAdding: .year, value: -25, to: Date())!
+        let sut = UserProfile(name: "Jane Doe", dateOfBirth: dateOfBirth, weight: 70.0, height: 175, gender: .female)
+
+        #expect(sut.bmr == 1507.75)
+    }
 }

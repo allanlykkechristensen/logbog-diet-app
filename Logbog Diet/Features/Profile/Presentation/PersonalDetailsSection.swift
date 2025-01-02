@@ -45,7 +45,16 @@ struct PersonalDetailsSection: View {
                         .tag(heightOptions[index])
                 }
             }
+
+            if let bmr = userProfile.bmr {
+                HStack {
+                    Text("Basal Metabolic Rate (BMR)")
+                    Spacer()
+                    Text(String(format: "%d", bmr))
+                }
+            }
         }
+
     }
 }
 
