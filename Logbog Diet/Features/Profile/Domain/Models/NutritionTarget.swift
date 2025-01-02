@@ -26,14 +26,27 @@ struct NutritionTarget: Equatable, Codable {
                carbs >= 0
     }
 
-    // Method to calculate macronutrient percentages
-    func macroPercentages() -> (proteinPercent: Double, fatPercent: Double, carbPercent: Double)? {
-        guard calories > 0 else { return nil }
-        let totalCalories = Double(calories)
-        let proteinPercent = (Double(proteins) * 4) / totalCalories * 100
-        let fatPercent = (Double(fats) * 9) / totalCalories * 100
-        let carbPercent = (Double(carbs) * 4) / totalCalories * 100
-        return (proteinPercent, fatPercent, carbPercent)
+    // Calculate percentage for a specific macro
+    func percentage(forMacro grams: Int, caloriesPerGram: Int) -> Double {
+        guard calories > 0 else {
+            return 0
+        }
+        return (Double(grams) * Double(caloriesPerGram) / Double(calories)) * 100
+    }
+
+    // Calculate protein percentage
+    func proteinPercentage() -> Double {
+        percentage(forMacro: proteins, caloriesPerGram: 4)
+    }
+
+    // Calculate fat percentage
+    func fatPercentage() -> Double {
+        percentage(forMacro: fats, caloriesPerGram: 9)
+    }
+
+    // Calculate carb percentage
+    func carbPercentage() -> Double {
+        percentage(forMacro: carbs, caloriesPerGram: 4)
     }
 
     // Factory method for a default target

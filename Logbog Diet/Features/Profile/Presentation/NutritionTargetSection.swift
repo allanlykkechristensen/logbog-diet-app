@@ -19,17 +19,17 @@ struct NutritionTargetSection: View {
             NutritionTargetInput(
                 label: "Proteins",
                 value: $nutritionTarget.proteins,
-                percentage: nutritionTarget.macroPercentages()?.proteinPercent)
+                percentage: nutritionTarget.proteinPercentage())
 
             NutritionTargetInput(
                 label: "Fats",
                 value: $nutritionTarget.fats,
-                percentage: nutritionTarget.macroPercentages()?.fatPercent)
+                percentage: nutritionTarget.fatPercentage())
 
             NutritionTargetInput(
                 label: "Carbs",
                 value: $nutritionTarget.carbs,
-                percentage: nutritionTarget.macroPercentages()?.carbPercent)
+                percentage: nutritionTarget.carbPercentage())
 
             HStack {
                 Text("Macro Calories (kcal)")
