@@ -35,6 +35,11 @@ public struct ProfileView: View {
                 PersonalDetailsSection(userProfile: $viewModel.userProfile)
                 NutritionTargetSection(nutritionTarget: $viewModel.nutritionTarget)
                 MacroTargetsSection(nutritionTarget: $viewModel.nutritionTarget)
+
+                CalorieForecastChart(
+                    currentWeight: $viewModel.userProfile.weight,
+                    calorieTarget: $viewModel.nutritionTarget.calories,
+                    tdee: $viewModel.nutritionTarget.tdee)
             }
         }
         .onAppear {
