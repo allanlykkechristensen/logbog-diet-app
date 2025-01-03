@@ -34,6 +34,7 @@ public struct ProfileView: View {
             List {
                 PersonalDetailsSection(userProfile: $viewModel.userProfile)
                 NutritionTargetSection(nutritionTarget: $viewModel.nutritionTarget)
+                MacroTargetsSection(nutritionTarget: $viewModel.nutritionTarget)
             }
         }
         .onAppear {

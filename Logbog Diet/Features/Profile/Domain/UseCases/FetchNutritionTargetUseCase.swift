@@ -12,6 +12,6 @@ class FetchNutritionTargetUseCase {
     }
 
     func execute() -> NutritionTarget {
-        return repository.loadNutritionTarget() ?? NutritionTarget.defaultTarget()
+        return repository.loadNutritionTarget() ?? NutritionTarget.defaultTarget(withTdee: 0)
     }
 }

@@ -7,10 +7,21 @@
 import Foundation
 
 struct NutritionTarget: Equatable, Codable {
+    var tdee: Int
     var calories: Int         // Total daily calorie goal
     var proteins: Int      // Protein goal in grams
     var fats: Int          // Fat goal in grams
     var carbs: Int         // Carbohydrate goal in grams
+    var goalPercentage: Double = 0.0
+
+    init(tdee: Int, calories: Int = 0, proteins: Int = 0, fats: Int = 0, carbs: Int = 0, goalPercentage: Double = 0.0) {
+        self.tdee = tdee
+        self.calories = calories
+        self.proteins = proteins
+        self.fats = fats
+        self.carbs = carbs
+        self.goalPercentage = goalPercentage
+    }
 
     // Derived property: Calculates total macronutrient calories
     var totalMacroCalories: Int {
@@ -24,6 +35,16 @@ struct NutritionTarget: Equatable, Codable {
                proteins >= 0 &&
                fats >= 0 &&
                carbs >= 0
+    }
+
+    // Updates `calories` when `goalPercentage` changes
+    mutating func updateCalories() {
+        self.calories = Int(Double(tdee) * (1 + goalPercentage / 100))
+    }
+
+    // Updates `goalPercentage` when `calories` changes
+    mutating func updateGoalPercentage() {
+        self.goalPercentage = (Double(calories) / Double(tdee) - 1) * 100
     }
 
     // Calculate percentage for a specific macro
@@ -50,7 +71,7 @@ struct NutritionTarget: Equatable, Codable {
     }
 
     // Factory method for a default target
-    static func defaultTarget() -> NutritionTarget {
-        return NutritionTarget(calories: 2000, proteins: 100, fats: 70, carbs: 250)
+    static func defaultTarget(withTdee tdee: Int) -> NutritionTarget {
+        return NutritionTarget(tdee: tdee)
     }
 }

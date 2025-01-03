@@ -10,6 +10,7 @@ class ProfileViewModel: ObservableObject {
     @Published var userProfile: UserProfile {
         didSet {
             saveUserProfile()
+            syncTdeeBetweenUserProfileAndNutritionTarget()
         }
     }
 
@@ -33,8 +34,14 @@ class ProfileViewModel: ObservableObject {
         self.fetchNutritionTargetUseCase = fetchNutritionTargetUseCase
         self.updateNutritionTargetUseCase = updateNutritionTargetUseCase
 
-        self.nutritionTarget = fetchNutritionTargetUseCase.execute()
         self.userProfile = fetchUserProfileUseCase.execute()
+        self.nutritionTarget = fetchNutritionTargetUseCase.execute()
+        syncTdeeBetweenUserProfileAndNutritionTarget()
+    }
+
+    func syncTdeeBetweenUserProfileAndNutritionTarget() {
+        self.nutritionTarget.tdee = self.userProfile.tdee
+        self.nutritionTarget.updateGoalPercentage()
     }
 
     func loadUserProfile() {
