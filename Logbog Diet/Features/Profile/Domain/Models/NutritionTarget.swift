@@ -25,7 +25,9 @@ struct NutritionTarget: Equatable, Codable {
 
     // Derived property: Calculates total macronutrient calories
     var totalMacroCalories: Int {
-        return Int((proteins * 4) + (fats * 9) + (carbs * 4))
+        return Int((proteins * NutritionConstants.caloriesPerGramProtein) +
+                   (fats * NutritionConstants.caloriesPerGramFat) +
+                   (carbs * NutritionConstants.caloriesPerGramCarb))
     }
 
     // Validation to ensure consistency between calories and macros
@@ -57,17 +59,17 @@ struct NutritionTarget: Equatable, Codable {
 
     // Calculate protein percentage
     func proteinPercentage() -> Double {
-        percentage(forMacro: proteins, caloriesPerGram: 4)
+        percentage(forMacro: proteins, caloriesPerGram: NutritionConstants.caloriesPerGramProtein)
     }
 
     // Calculate fat percentage
     func fatPercentage() -> Double {
-        percentage(forMacro: fats, caloriesPerGram: 9)
+        percentage(forMacro: fats, caloriesPerGram: NutritionConstants.caloriesPerGramFat)
     }
 
     // Calculate carb percentage
     func carbPercentage() -> Double {
-        percentage(forMacro: carbs, caloriesPerGram: 4)
+        percentage(forMacro: carbs, caloriesPerGram: NutritionConstants.caloriesPerGramCarb)
     }
 
     // Factory method for a default target
