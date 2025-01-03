@@ -12,6 +12,17 @@ struct UserProfile: Codable, Equatable {
     var weight: Double  // in kilograms
     var height: Int  // in centimeters
     var gender: Gender
+    var activityLevel: ActivityLevel
+
+    init(name: String, dateOfBirth: Date, weight: Double, height: Int, gender: Gender,
+         activityLevel: ActivityLevel = .sedentary) {
+        self.name = name
+        self.dateOfBirth = dateOfBirth
+        self.weight = weight
+        self.height = height
+        self.gender = gender
+        self.activityLevel = activityLevel
+    }
 
     // Derived property: calculates BMI based on weight and height
     var bmi: Int {
@@ -30,6 +41,11 @@ struct UserProfile: Codable, Equatable {
         let bmr = weightContribution + heightContribution - ageContribution + genderContribution
 
         return Int(ceil(bmr))
+    }
+
+    // Derived property: calculcates the Total Daily Energy Expenditure (TDEE) based on the BMR and activity level.
+    var tdee: Int {
+        return Int(ceil(Double(bmr) * activityLevel.multiplier))
     }
 
     // Derived property: calculates age based on `dateOfBirth`
@@ -52,7 +68,8 @@ struct UserProfile: Codable, Equatable {
             dateOfBirth: Date(),  // Default to the current date
             weight: 0.0,
             height: 0,
-            gender: .unspecified
+            gender: .unspecified,
+            activityLevel: .sedentary
         )
     }
 }
@@ -69,6 +86,24 @@ enum Gender: String, Codable, CaseIterable {
         case .female: return "Female"
         case .nonBinary: return "Non-Binary"
         case .unspecified: return "Unspecified"
+        }
+    }
+}
+
+enum ActivityLevel: String, CaseIterable, Codable {
+    case sedentary = "Sedentary"
+    case lightlyActive = "Lightly Active"
+    case moderatelyActive = "Moderately Active"
+    case veryActive = "Very Active"
+    case extraActive = "Extra Active"
+
+    var multiplier: Double {
+        switch self {
+        case .sedentary: return 1.2
+        case .lightlyActive: return 1.375
+        case .moderatelyActive: return 1.55
+        case .veryActive: return 1.725
+        case .extraActive: return 1.9
         }
     }
 }

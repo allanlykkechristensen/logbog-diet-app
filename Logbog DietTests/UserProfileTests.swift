@@ -45,4 +45,17 @@ struct UserProfileTests {
 
         #expect(sut.bmr == 1508)
     }
+
+    @Test("Calculate TDEE", arguments: zip(
+        [ActivityLevel.sedentary, .lightlyActive, .moderatelyActive, .veryActive, .extraActive],
+        [2009, 2302, 2595, 2888, 3181]))
+    func testTdeeCalculation(activityLevel: ActivityLevel, expectedTdee: Int) {
+        let calendar = Calendar.current
+        let dateOfBirth = calendar.date(byAdding: .year, value: -25, to: Date())!
+        let sut = UserProfile(name: "John Doe", dateOfBirth: dateOfBirth, weight: 70.0, height: 175, gender: .male,
+                              activityLevel: activityLevel)
+
+        #expect(sut.tdee == expectedTdee)
+    }
+
 }

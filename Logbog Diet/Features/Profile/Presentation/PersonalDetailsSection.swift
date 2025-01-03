@@ -57,6 +57,18 @@ struct PersonalDetailsSection: View {
                 Spacer()
                 Text(String(format: "%d", userProfile.bmr))
             }
+
+            Picker("Activity Level", selection: $userProfile.activityLevel) {
+                ForEach(ActivityLevel.allCases, id: \.self) { level in
+                    Text("\(level.rawValue)")
+                }
+            }
+
+            HStack {
+                Text("Total Daily Energy Expenditure (TDEE)")
+                Spacer()
+                Text(String(format: "%d", userProfile.tdee))
+            }
         }
     }
 }
