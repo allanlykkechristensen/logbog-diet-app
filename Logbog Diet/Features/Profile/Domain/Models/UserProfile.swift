@@ -21,14 +21,15 @@ struct UserProfile: Codable, Equatable {
     }
 
     // Derived property: calculcates the Basal Metabolic Rate (BMR) based on weight, height, age and gender
-    var bmr: Double? {
+    var bmr: Int {
         let weightContribution = 10 * weight
 
         let heightContribution = 6.25 * Double(height)
         let ageContribution = 5.0 * Double(age)
         let genderContribution = if gender == .female { -161.0 } else { 5.0 }
+        let bmr = weightContribution + heightContribution - ageContribution + genderContribution
 
-        return weightContribution + heightContribution - ageContribution + genderContribution
+        return Int(ceil(bmr))
     }
 
     // Derived property: calculates age based on `dateOfBirth`

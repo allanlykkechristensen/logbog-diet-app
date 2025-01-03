@@ -46,13 +46,12 @@ struct PersonalDetailsSection: View {
                 }
             }
 
-            if let bmr = userProfile.bmr {
-                HStack {
-                    Text("Basal Metabolic Rate (BMR)")
-                    Spacer()
-                    Text(String(format: "%d", bmr))
-                }
+            HStack {
+                Text("Basal Metabolic Rate (BMR)")
+                Spacer()
+                Text(String(format: "%d", userProfile.bmr))
             }
+
         }
 
     }
