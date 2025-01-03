@@ -13,16 +13,13 @@ struct UserProfileTests {
 
     @Test func testBmiCalculationWithValidValues() {
         let sut = UserProfile(name: "John Doe", dateOfBirth: Date(), weight: 70.0, height: 175, gender: .male)
-        if let sutBmi = sut.bmi {
-            let bmi = (sutBmi * 100).rounded() / 100
-            #expect(bmi == 22.86)
-        }
+        #expect(sut.bmi == 23)
     }
 
     @Test func testBmiCalculationWithZeroHeight() {
         let sut = UserProfile(name: "John Doe", dateOfBirth: Date(), weight: 70.0, height: 0, gender: .male)
 
-        #expect(sut.bmi == nil)
+        #expect(sut.bmi == 0)
     }
 
     @Test func testAgeCalculationWithValidDateOfBirth() {

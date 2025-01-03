@@ -14,10 +14,10 @@ struct UserProfile: Codable, Equatable {
     var gender: Gender
 
     // Derived property: calculates BMI based on weight and height
-    var bmi: Double? {
-        guard height > 0 else { return nil }
+    var bmi: Int {
+        guard height > 0 else { return 0 }
         let heightInMeters = Double(height) / 100.0
-        return weight / (heightInMeters * heightInMeters)
+        return Int((ceil(weight / (heightInMeters * heightInMeters))))
     }
 
     // Derived property: calculcates the Basal Metabolic Rate (BMR) based on weight, height, age and gender

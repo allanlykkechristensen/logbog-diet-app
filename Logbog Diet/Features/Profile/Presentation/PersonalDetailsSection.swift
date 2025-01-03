@@ -47,13 +47,17 @@ struct PersonalDetailsSection: View {
             }
 
             HStack {
+                Text("Body Mass Index (BMI)")
+                Spacer()
+                Text(String(format: "%d", userProfile.bmi))
+            }
+
+            HStack {
                 Text("Basal Metabolic Rate (BMR)")
                 Spacer()
                 Text(String(format: "%d", userProfile.bmr))
             }
-
         }
-
     }
 }
 
